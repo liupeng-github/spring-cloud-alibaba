@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: spring-cloud-alibaba-dubbo-consumer-logistics
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        namespace: spring-cloud-alibaba-dubbo
+        file-extension: yaml
+        group: DUBBO_CONSUMER_GROUP
+      discovery:
+        namespace: spring-cloud-alibaba
+        group: PROD_GROUP

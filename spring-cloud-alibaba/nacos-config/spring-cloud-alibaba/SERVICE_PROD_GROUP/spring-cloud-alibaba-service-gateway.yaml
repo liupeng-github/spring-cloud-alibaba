@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: spring-cloud-alibaba-service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: spring-cloud-alibaba-auth
+          uri: lb://spring-cloud-alibaba-service-auth
+          predicates:
+            - Path=/auth/**
+        - id: spring-cloud-alibaba-rocketmq
+          uri: lb://spring-cloud-alibaba-service-rocketmq
+          predicates:
+            - Path=/rocketmq/**
+        - id: spring-cloud-alibaba-business-storage
+          uri: lb://spring-cloud-alibaba-business-storage
+          predicates:
+            - Path=/storage/**
+        - id: spring-cloud-alibaba-business-order
+          uri: lb://spring-cloud-alibaba-business-order
+          predicates:
+            - Path=/order/**
+        - id: spring-cloud-alibaba-business-account
+          uri: lb://spring-cloud-alibaba-business-account
+          predicates:
+            - Path=/account/**
+        - id: spring-cloud-alibaba-business-pay
+          uri: lb://spring-cloud-alibaba-business-pay
+          predicates:
+            - Path=/pay/**
+        - id: spring-cloud-alibaba-business-logistics
+          uri: lb://spring-cloud-alibaba-business-logistics
+          predicates:
+            - Path=/logistics/**
+      # 注释以下内容执行自定义 fallback
+      scg:  # Sentinel 对 Spring Cloud Gateway 的专属配置项，对应 SentinelGatewayProperties 类
+        order: -2147483648  # 过滤器顺序，默认为 -2147483648 最高优先级
+        fallback:
+          # fallback 模式，目前有三种：response、redirect、空（执行自定义 cloud.liupeng.sentinel.handler.CustomBlockRequestHandler 类）
+          mode: response
+          # 对应 response 模式
+          response-status: 429
+          # 响应内容，默认为空
+          response-body: '{"code": 429, "message": "网关限流，请稍后重试！"}'
+          content-type: application/json # 内容类型，默认为 application/json
+
+          # 对应 redirect 模式
+          #redirect: http://www.liupeng.cloud
+
+      # 注释以上内容执行自定义 fallback
+  mvc:
+    throw-exception-if-no-handler-found: true  # 使用 SpringBoot 捕获 404 异常
+  web:
+    resources:
+      add-mappings: true  # 静态资源的映射，默认为true，修改为false时禁止加载静态资源，加载自定义 404 异常。本项目在拦截器中定义404异常
+
+server:
+  port: 9527
+
+logging:
+  config:
+    - classpath:log4j2.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

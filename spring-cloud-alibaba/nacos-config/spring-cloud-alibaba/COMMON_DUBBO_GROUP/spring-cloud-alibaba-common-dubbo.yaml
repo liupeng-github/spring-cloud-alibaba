@@ -1,0 +1,10 @@
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1  # -1 表示 dubbo 自动扫描并使用可用端口（从20880开始递增）网络中端口范围：1-65535
+  registry:
+    address: nacos://127.0.0.1:8848?namespace=apache-dubbo
+    group: DUBBO_GROUP
+    # 默认生成配置文件
+    use-as-config-center: true
+    use-as-metadata-center: true

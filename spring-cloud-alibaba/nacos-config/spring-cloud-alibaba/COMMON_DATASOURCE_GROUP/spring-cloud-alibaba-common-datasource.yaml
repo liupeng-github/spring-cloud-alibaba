@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    dynamic:
+      seata: true # 启动 seata
+      seata-mode: at # AT 模式
+      strict: false # 不启用严格模式
+      # primary: storage # 主数据源，分库分表数据源可以不配置主数据源
+      datasource:
+        auth:
+          driverClassName: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_auth?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+        storage:
+          driverClassName: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_storage?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+        order:
+          driverClassName: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+        account:
+          driverClassName: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_account?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+        pay:
+          driverClassName: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_pay?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+        logistics:
+          driverClassName: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_logistics?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+  jpa:
+    show-sql: true # 默认false，在日志里显示执行的sql语句
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update # 指定为 update，每次启动项目检测表结构有变化的时候会新增字段，表不存在时会新建，如果指定 create，则每次启动项目都会清空数据并删除表，再新建
+      naming:
+        # 指定 jpa 的自动表生成策略，驼峰自动映射为下划线格式
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: tbl_

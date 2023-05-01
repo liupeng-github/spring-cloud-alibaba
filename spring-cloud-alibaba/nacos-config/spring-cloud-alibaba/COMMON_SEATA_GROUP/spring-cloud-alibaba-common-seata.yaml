@@ -1,0 +1,39 @@
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: microservices_tx_group  # 自定义事务名称
+  use-jdk-proxy: true
+  enable-auto-data-source-proxy: false  # 是否自动开启数据源代理
+  data-source-proxy-mode: AT # 数据源代理模式，默认 AT 模式
+  client:
+    rm:
+      lock:
+        retry-interval: 10  # 校验或占用全局锁重试间隔，单位ms
+        retry-times: 30  # 校验或占用全局锁重试次数
+        retry-policy-branch-rollback-on-conflict: true  # 分支事务与其它全局回滚事务冲突时锁策略,true：优先释放本地锁让回滚成功
+    tm:
+      commit-retry-count: 5  # 一阶段全局提交结果上报 TC 重试次数
+      rollback-retry-count: 5  # 一阶段全局回滚结果上报 TC 重试次数
+      default-global-transaction-timeout: 600000  # 分布式事物超时时间
+      degrade-check: false  # 是否打开降级
+      degrade-check-period: 2000
+      degrade-check-allow-times: 10
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      namespace: spring-cloud-alibaba
+      group: PROD_GROUP
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      data-id: seataServer.properties
+      namespace: alibaba-seata
+      group: SEATA_GROUP
+  service:
+    vgroup-mapping:
+      springcloud-alibaba_tx_group: microservices-datalayer
+  log:
+    exception-rate: 100

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cloud.liupeng</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../spring-cloud-alibaba-dependencies/pom.xml</relativePath>
+    </parent>
+    <groupId>cloud.liupeng</groupId>
+    <artifactId>spring-cloud-alibaba-dubbo-consumer-account-1123</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description>账户服务，数据访问层，dubbo 提供消费服务</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cloud.liupeng</groupId>
+            <artifactId>spring-cloud-alibaba-commons-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cloud.liupeng</groupId>
+            <artifactId>spring-cloud-alibaba-interface-dubbo</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cloud.liupeng.consumer.DatalayerDubboConsumerAccountApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

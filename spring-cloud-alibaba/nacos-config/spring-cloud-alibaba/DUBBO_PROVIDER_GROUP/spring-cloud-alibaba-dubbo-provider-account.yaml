@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: spring-cloud-alibaba-dubbo-provider-account
+  mvc:
+    throw-exception-if-no-handler-found: true  # 使用 SpringBoot 捕获 404 异常
+  web:
+    resources:
+      add-mappings: true  # 禁止静态资源的映射，加载自定义 404 异常
+
+dubbo:
+  application:
+    qos-port: 10230
+
+server:
+  port: 1023
+
+logging:
+  config:
+    - classpath:log4j2.xml

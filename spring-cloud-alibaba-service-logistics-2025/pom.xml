@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cloud.liupeng</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../spring-cloud-alibaba-dependencies/pom.xml</relativePath>
+    </parent>
+    <groupId>cloud.liupeng</groupId>
+    <artifactId>spring-cloud-alibaba-service-logistics-2025</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description>物流服务</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cloud.liupeng</groupId>
+            <artifactId>spring-cloud-alibaba-interface-openfeign</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cloud.liupeng.ServiceLogisticsApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: spring-cloud-alibaba-dubbo-consumer-order
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        namespace: spring-cloud-alibaba-dubbo
+        group: DUBBO_CONSUMER_GROUP
+        file-extension: yaml
+        shared-configs: # 共享配置
+          - dataId: spring-cloud-alibaba-common-dubbo.yaml
+            group: DUBBO_GROUP
+            refresh: true # 设置动态刷新
+      discovery:
+        namespace: spring-cloud-alibaba
+        group: PROD_GROUP

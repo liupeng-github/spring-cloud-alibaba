@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    sentinel:
+      eager: true  # 是否饥饿加载。默认为 false 关闭
+      transport:
+        dashboard: 127.0.0.1:8080  # Sentinel 控制台默认启动在 8080 端口
+      datasource:
+        ds1-flow:
+          nacos:
+            serverAddr: http://nacos.liupeng.cloud
+            dataId: ${spring.application.name}-flow-rules
+            namespace: alibaba-sentinel
+            groupId: SENTINEL_GROUP
+            ruleType: FLOW  # 规则类型，流控
+            dataType: json
