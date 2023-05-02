@@ -23,6 +23,7 @@
         <sentinel.version>2.0.0-alpha</sentinel.version>
         <spring-cloud-bootstrap.version>3.1.6</spring-cloud-bootstrap.version>
         <spring-cloud-openfeign.version>4.0.2</spring-cloud-openfeign.version>
+        <spring-cloud-oauth2.version>2.2.5.RELEASE</spring-cloud-oauth2.version>
         <dubbo.version>3.2.0</dubbo.version>
         <dubbo-sentinel.version>1.8.6</dubbo-sentinel.version>
         <spring-boot-starter-webflux.version>3.0.5</spring-boot-starter-webflux.version>
@@ -64,6 +65,12 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
                 <version>${spring-cloud-openfeign.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-oauth2.version}</version>
             </dependency>
             <!-- spring-cloud 微服务 End -->
 
@@ -218,4 +225,29 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

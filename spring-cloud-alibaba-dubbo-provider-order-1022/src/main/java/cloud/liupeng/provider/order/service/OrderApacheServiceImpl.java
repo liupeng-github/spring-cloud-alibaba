@@ -53,18 +53,6 @@ public class OrderApacheServiceImpl extends ServiceImpl<OrderMapper, Order> impl
     }
 
     /**
-     * 修改订单状态
-     *
-     * @param orderId
-     * @param status
-     * @return
-     */
-    @Override
-    public Order updateOrderStatus(Long orderId, int status) {
-        return baseMapper.updateOrderStatus(orderId, status);
-    }
-
-    /**
      * 查询订单
      *
      * @param orderId
@@ -75,5 +63,17 @@ public class OrderApacheServiceImpl extends ServiceImpl<OrderMapper, Order> impl
     @Override
     public Order getOrder(Long orderId) {
         return baseMapper.getOrder(orderId);
+    }
+
+    /**
+     * 修改订单状态
+     *
+     * @param orderId
+     * @param status
+     * @return
+     */
+    @Override
+    public Order updateOrderStatus(Long orderId, int status) {
+        return baseMapper.updateOrderStatus(orderId, status);
     }
 }

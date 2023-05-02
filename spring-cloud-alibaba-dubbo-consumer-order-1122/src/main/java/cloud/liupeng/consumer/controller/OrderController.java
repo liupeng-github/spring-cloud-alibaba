@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.skywalking.apm.toolkit.trace.Tag;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,13 +26,12 @@ public class OrderController {
     @DubboReference
     private IOrderApacheService orderApacheService;
 
-    @Value("${server.port}")
-    private String port;
-
     /**
      * 创建订单
      *
+     * @param userId
      * @param commodityCode
+     * @param orderCount
      * @return
      */
     @Trace

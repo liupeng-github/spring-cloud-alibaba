@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.skywalking.apm.toolkit.trace.Tag;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @LKAType(value = "LogisticsController", description = "物流接口，Dubbo 消费服务，端口号：1125")
 @RestController
 public class LogisticsController {
-
-    @Value("${server.port}")
-    private String port;
 
     @DubboReference
     private ILogisticsApacheService logisticsApacheService;

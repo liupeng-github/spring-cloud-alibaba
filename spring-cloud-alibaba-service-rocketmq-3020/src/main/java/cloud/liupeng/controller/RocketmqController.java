@@ -1,6 +1,6 @@
 package cloud.liupeng.controller;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
 import cn.hutool.http.HttpStatus;
 import com.lk.api.annotation.LKAMethod;
 import com.lk.api.annotation.LKAParam;
@@ -28,10 +28,10 @@ public class RocketmqController {
 
     @Trace
     @LKAMethod(value = "index 方法", description = "单体服务测试方法")
-    @GetMapping("/index")
-    public JSONResult index() {
-        log.info("RocketMQ 服务接口，url：/auth/index，端口号：" + port);
-        return JSONResult.message(HttpStatus.HTTP_OK, "RocketMQ 服务", "端口号：" + port);
+    @GetMapping("/rocketmq/index")
+    public JsonResult index() {
+        log.info("RocketMQ 服务接口，url：/rocketmq/index，端口号：" + port);
+        return JsonResult.success(HttpStatus.HTTP_OK, "RocketMQ 服务", "端口号：" + port);
     }
 
     /**
@@ -45,8 +45,8 @@ public class RocketmqController {
     @LKAMethod(value = "rocketMessage 方法", description = "RocketMQ 接收消息，URL：/rocketmq/rocketMessage/{message}")
     @LKAParam(name = "message", value = "消息")
     @GetMapping("/rocketmq/rocketMessage/{message}")
-    public JSONResult rocketMessage(@PathVariable("message") String message) {
-        log.info("订单支付接口，url：/rocketmq/rocketmqMessage/，参数：" + message);
-        return JSONResult.message(HttpStatus.HTTP_OK, "RocketMQ 消息", "端口号：" + port);
+    public JsonResult rocketMessage(@PathVariable("message") String message) {
+        log.info("订单支付接口，url：/rocketmq/rocketMessage/，参数：" + message);
+        return JsonResult.success(HttpStatus.HTTP_OK, "RocketMQ 消息", "端口号：" + port);
     }
 }

@@ -1,5 +1,6 @@
 package cloud.liupeng.openfeign.service.datalayer;
 
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-dubbo-consumer-storage")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_DUBBO_CONSUMER_STORAGE)
 public interface DataLayerStorageService {
 
     /**
@@ -18,8 +19,8 @@ public interface DataLayerStorageService {
      * @param commodityCode
      * @return
      */
-    @PostMapping("/getStorageDatalayer/{commodityCode}")
-    Integer getStorageDatalayer(@PathVariable("commodityCode") String commodityCode);
+    @PostMapping("/getStorageTotalDatalayer/{commodityCode}")
+    int getStorageTotalDatalayer(@PathVariable("commodityCode") String commodityCode);
 
     /**
      * 减库存
@@ -28,5 +29,5 @@ public interface DataLayerStorageService {
      * @return
      */
     @PostMapping("/deductDatalayer/{commodityCode}/{count}")
-    Integer deductDatalayer(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count);
+    int deductDatalayer(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count);
 }

@@ -1,5 +1,6 @@
 package cloud.liupeng.openfeign.service.datalayer;
 
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-dubbo-consumer-pay")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_DUBBO_CONSUMER_PAY)
 public interface DataLayerPayService {
 
     /**
@@ -19,5 +20,5 @@ public interface DataLayerPayService {
      * @return
      */
     @PostMapping("/orderPayDatalayer/{orderId}")
-    Integer orderPayDatalayer(@PathVariable("orderId") Long orderId);
+    int orderPayDatalayer(@PathVariable("orderId") Long orderId);
 }

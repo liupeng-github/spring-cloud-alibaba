@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-cloud-alibaba-service-storage
+    name: spring-cloud-alibaba-service-rocketmq
   cloud:
     nacos:
       discovery:
@@ -18,7 +18,7 @@ spring:
       add-mappings: true  # 静态资源的映射，默认为true，修改为false时禁止加载静态资源，加载自定义 404 异常。本项目在拦截器中定义404异常
 
 server:
-  port: 2021
+  port: 3020
   undertow:
     threads:  # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程 不要设置过大，如果过大，启动项目会报错：打开文件数过多
       io: 4  # 指定工作者线程的 I/0 线程数，默认为 2 或者 CPU 的个数

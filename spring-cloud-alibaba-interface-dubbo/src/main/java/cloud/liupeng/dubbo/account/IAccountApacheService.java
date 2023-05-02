@@ -21,5 +21,5 @@ public interface IAccountApacheService extends IService<Account> {
     /**
      * 从用户账户中借出
      */
-    Integer debit(String userId, int money);
+    int debit(String userId, int money);
 }

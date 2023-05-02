@@ -1,6 +1,7 @@
 package cloud.liupeng.openfeign.service.order;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-service-order", path = "/order", url = "http://127.0.0.1:2022")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_SERVICE_ORDER, path = "/order")
 public interface OrderService {
 
     /**
@@ -20,5 +21,5 @@ public interface OrderService {
      * @return
      */
     @GetMapping("/getOrder/{orderId}")
-    JSONResult getOrder(@PathVariable("orderId") Long orderId);
+    JsonResult getOrder(@PathVariable("orderId") Long orderId);
 }

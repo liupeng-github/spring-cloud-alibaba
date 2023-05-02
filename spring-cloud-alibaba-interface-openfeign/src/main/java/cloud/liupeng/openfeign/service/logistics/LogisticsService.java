@@ -1,6 +1,7 @@
 package cloud.liupeng.openfeign.service.logistics;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-service-logistics", path = "/logistics", url = "http://127.0.0.1:2025")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_SERVICE_LOGISTICS, path = "/logistics")
 public interface LogisticsService {
 
     /**
@@ -20,5 +21,5 @@ public interface LogisticsService {
      * @return
      */
     @GetMapping("/getLogistics/{logistics_id}")
-    JSONResult getLogistics(@PathVariable("logistics_id") String logistics_id);
+    JsonResult getLogistics(@PathVariable("logistics_id") String logistics_id);
 }

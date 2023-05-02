@@ -13,10 +13,10 @@ public interface IStorageApacheService extends IService<Storage> {
     /**
      * 查询商品
      */
-    Integer getStorageTotal(String commodityCode);
+    int getStorageTotal(String commodityCode);
 
     /**
      * 扣除商品存储数量
      */
-    Integer deduct(String commodityCode, int count);
+    int deduct(String commodityCode, int count);
 }

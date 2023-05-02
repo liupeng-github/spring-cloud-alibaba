@@ -1,6 +1,6 @@
 package cloud.liupeng.api.exception.handler;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
 import cloud.liupeng.api.exception.BusinessException;
 import cloud.liupeng.api.exception.ServiceException;
 import cn.hutool.http.HttpStatus;
@@ -30,19 +30,19 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler({BusinessException.class})
-    public JSONResult businessExceptionHandler(HttpServletRequest req, BusinessException e) throws Exception {
-        return JSONResult.message(HttpStatus.HTTP_INTERNAL_ERROR, "自定义 业务 异常", e.getMessage());
+    public JsonResult businessExceptionHandler(HttpServletRequest req, BusinessException e) throws Exception {
+        return JsonResult.success(HttpStatus.HTTP_INTERNAL_ERROR, "自定义 业务 异常", e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler({ArithmeticException.class})
-    public JSONResult arithmeticExceptionHandler(HttpServletRequest req, ArithmeticException e) throws Exception {
-        return JSONResult.message(HttpStatus.HTTP_INTERNAL_ERROR, "自定义 算数 异常", e.getMessage());
+    public JsonResult arithmeticExceptionHandler(HttpServletRequest req, ArithmeticException e) throws Exception {
+        return JsonResult.success(HttpStatus.HTTP_INTERNAL_ERROR, "自定义 算数 异常", e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler({IllegalStateException.class})
-    public JSONResult illegalStateExceptionHandler(HttpServletRequest req, IllegalStateException e) throws Exception {
-        return JSONResult.message(HttpStatus.HTTP_INTERNAL_ERROR, "IllegalStateException 异常", e.getMessage());
+    public JsonResult illegalStateExceptionHandler(HttpServletRequest req, IllegalStateException e) throws Exception {
+        return JsonResult.success(HttpStatus.HTTP_INTERNAL_ERROR, "IllegalStateException 异常", e.getMessage());
     }
 }

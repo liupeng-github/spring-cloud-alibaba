@@ -44,7 +44,7 @@ public class AccountApacheServiceImpl extends ServiceImpl<AccountMapper, Account
     @LKAMethod(value = "debit 方法", description = "数据层账户接口实现类，从用户账户中借出")
     @LKAParam(names = {"userId", "money"}, values = {"用户ID", "金额"})
     @Override
-    public Integer debit(String userId, int money) {
+    public int debit(String userId, int money) {
         return baseMapper.debit(userId, money);
     }
 }

@@ -1,6 +1,6 @@
 package cloud.liupeng.controller;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
 import cloud.liupeng.openfeign.service.rocketmq.RocketmqService;
 import cn.hutool.http.HttpStatus;
 import com.lk.api.annotation.LKAMethod;
@@ -35,8 +35,8 @@ public class RocketmqController {
     @LKAMethod(value = "rocketMessage 方法", description = "订单调消息服务，URL：/order/rocketMessage/{orderId}")
     @LKAParam(name = "message", value = "消息")
     @GetMapping("/order/rocketMessage/{message}")
-    public JSONResult rocketMessage(@PathVariable("message") String message) {
+    public JsonResult rocketMessage(@PathVariable("message") String message) {
         log.info("调消息服务接口，url：/order/rocketmq/，参数：" + message);
-        return JSONResult.message(HttpStatus.HTTP_OK, "订单调消息服务", rocketmqService.rocketMessage(message));
+        return JsonResult.success(HttpStatus.HTTP_OK, "订单调消息服务", rocketmqService.rocketMessage(message));
     }
 }

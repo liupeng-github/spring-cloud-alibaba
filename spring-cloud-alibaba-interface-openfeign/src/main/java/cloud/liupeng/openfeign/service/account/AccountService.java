@@ -1,6 +1,7 @@
 package cloud.liupeng.openfeign.service.account;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-service-account", path = "/account", url = "http://127.0.0.1:2023")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_SERVICE_ACCOUNT, path = "/account")
 public interface AccountService {
 
     /**
@@ -20,7 +21,7 @@ public interface AccountService {
      * @return
      */
     @GetMapping("/getAccount/{account_id}")
-    JSONResult getAccount(@PathVariable("account_id") String account_id);
+    JsonResult getAccount(@PathVariable("account_id") String account_id);
 
     /**
      * 从用户账户中借出
@@ -29,5 +30,5 @@ public interface AccountService {
      * @param money
      */
     @GetMapping("/debit/{userId}/{money}")
-    JSONResult debit(@PathVariable("userId") String userId, @PathVariable("money") Integer money);
+    JsonResult debit(@PathVariable("userId") String userId, @PathVariable("money") Integer money);
 }

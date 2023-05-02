@@ -2,6 +2,15 @@ spring:
   application:
     name: spring-cloud-alibaba-service-gateway
   cloud:
+    nacos:
+      discovery:
+        namespace: spring-cloud-alibaba
+        group: PROD_GROUP
+        cluster-name: hangzhou # 集群隔离
+        ephemeral: true # 持久化实例 ture为临时实例 false为持久化实例 临时实例发生异常直接剔除, 而持久化实例等待恢复
+    loadbalancer: # loadbalancer 开启 nacos 支持，集成 nacos 负载均衡
+      nacos:
+        enabled: true
     gateway:
       discovery:
         locator:
@@ -16,26 +25,41 @@ spring:
           uri: lb://spring-cloud-alibaba-service-rocketmq
           predicates:
             - Path=/rocketmq/**
-        - id: spring-cloud-alibaba-business-storage
-          uri: lb://spring-cloud-alibaba-business-storage
+        - id: spring-cloud-alibaba-storage
+          uri: lb://spring-cloud-alibaba-service-storage
           predicates:
             - Path=/storage/**
-        - id: spring-cloud-alibaba-business-order
-          uri: lb://spring-cloud-alibaba-business-order
+        - id: spring-cloud-alibaba-order
+          uri: lb://spring-cloud-alibaba-service-order
           predicates:
             - Path=/order/**
-        - id: spring-cloud-alibaba-business-account
-          uri: lb://spring-cloud-alibaba-business-account
+        - id: spring-cloud-alibaba-account
+          uri: lb://spring-cloud-alibaba-service-account
           predicates:
             - Path=/account/**
-        - id: spring-cloud-alibaba-business-pay
-          uri: lb://spring-cloud-alibaba-business-pay
+        - id: spring-cloud-alibaba-pay
+          uri: lb://spring-cloud-alibaba-service-pay
           predicates:
             - Path=/pay/**
-        - id: spring-cloud-alibaba-business-logistics
-          uri: lb://spring-cloud-alibaba-business-logistics
+        - id: spring-cloud-alibaba-logistics
+          uri: lb://spring-cloud-alibaba-service-logistics
           predicates:
             - Path=/logistics/**
+    sentinel:
+      eager: true  # 是否饥饿加载。默认为 false 关闭
+      transport:
+        dashboard: 127.0.0.1:8080  # Sentinel 控制台默认启动在 8080 端口
+      filter:
+        enabled: false
+      datasource:
+        ds1-flow:
+          nacos:
+            serverAddr: http://nacos.liupeng.cloud
+            dataId: ${spring.application.name}-flow-rules
+            namespace: alibaba-sentinel
+            groupId: SENTINEL_GROUP
+            ruleType: FLOW
+            dataType: json
       # 注释以下内容执行自定义 fallback
       scg:  # Sentinel 对 Spring Cloud Gateway 的专属配置项，对应 SentinelGatewayProperties 类
         order: -2147483648  # 过滤器顺序，默认为 -2147483648 最高优先级

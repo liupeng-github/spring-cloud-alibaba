@@ -1,6 +1,16 @@
 spring:
   application:
     name: spring-cloud-alibaba-service-pay
+  cloud:
+    nacos:
+      discovery:
+        namespace: spring-cloud-alibaba
+        group: PROD_GROUP
+        cluster-name: hangzhou # 集群隔离
+        ephemeral: true # 持久化实例 ture为临时实例 false为持久化实例 临时实例发生异常直接剔除, 而持久化实例等待恢复
+    loadbalancer: # loadbalancer 开启 nacos 支持，集成 nacos 负载均衡
+      nacos:
+        enabled: true
   mvc:
     throw-exception-if-no-handler-found: true  # 使用 SpringBoot 捕获 404 异常
   web:

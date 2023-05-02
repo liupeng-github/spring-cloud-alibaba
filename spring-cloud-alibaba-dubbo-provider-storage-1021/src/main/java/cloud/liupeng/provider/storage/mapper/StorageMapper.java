@@ -15,9 +15,9 @@ import org.springframework.data.repository.query.Param;
 @Mapper
 public interface StorageMapper extends BaseMapper<Storage> {
 
-    @Select("SELECT SUM(total) FROM tbl_storage WHERE commodity_code=#{commodityCode}")
-    Integer getStorageTotal(@Param("commodityCode") String commodityCode);
+    @Select("SELECT IFNULL(SUM(total), 0) AS total FROM tbl_storage WHERE commodity_code=#{commodityCode}")
+    int getStorageTotal(@Param("commodityCode") String commodityCode);
 
     @Update("UPDATE tbl_storage SET total = total - ${count} WHERE commodity_code=#{commodityCode}")
-    Integer deduct(@Param("commodityCode") String commodityCode, @Param("count") int count);
+    int deduct(@Param("commodityCode") String commodityCode, @Param("count") int count);
 }

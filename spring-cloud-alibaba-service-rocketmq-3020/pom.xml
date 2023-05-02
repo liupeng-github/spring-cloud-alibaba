@@ -20,8 +20,18 @@
             <groupId>cloud.liupeng</groupId>
             <artifactId>spring-cloud-alibaba-commons-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-spring-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        
+
         <!-- rocketmq -->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>

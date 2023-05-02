@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.skywalking.apm.toolkit.trace.Tag;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,9 +25,6 @@ public class StorageController {
     @DubboReference
     private IStorageApacheService storageApacheService;
 
-    @Value("${server.port}")
-    private String port;
-
     /**
      * 查询商品
      *
@@ -36,11 +32,11 @@ public class StorageController {
      * @return
      */
     @Trace
-    @Tag(key = "getStorageDatalayer", value = "commodityCode")
-    @LKAMethod(value = "getStorageDatalayer 方法", description = "查询商品")
+    @Tag(key = "getStorageTotalDatalayer", value = "commodityCode")
+    @LKAMethod(value = "getStorageTotalDatalayer 方法", description = "查询商品")
     @LKAParam(name = "commodityCode", value = "商品编号")
-    @PostMapping("/getStorageDatalayer/{commodityCode}")
-    public Integer getStorageDatalayer(@PathVariable("commodityCode") String commodityCode) {
+    @PostMapping("/getStorageTotalDatalayer/{commodityCode}")
+    public int getStorageTotalDatalayer(@PathVariable("commodityCode") String commodityCode) {
         return storageApacheService.getStorageTotal(commodityCode);
     }
 
@@ -56,7 +52,7 @@ public class StorageController {
     @LKAMethod(value = "deductDatalayer 方法", description = "减库存")
     @LKAParam(names = {"commodityCode", "count"}, values = {"商品编号", "数量"})
     @PostMapping("/deductDatalayer/{commodityCode}/{count}")
-    public Integer deductDatalayer(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count) {
+    public int deductDatalayer(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count) {
         return storageApacheService.deduct(commodityCode, count);
     }
 }

@@ -1,6 +1,7 @@
 package cloud.liupeng.openfeign.service.storage;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-service-storage", path = "/storage", url = "http://127.0.0.1:2021")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_SERVICE_STORAGE, path = "/storage")
 public interface StorageService {
 
     /**
@@ -20,7 +21,7 @@ public interface StorageService {
      * @return
      */
     @GetMapping("/getStorage/{commodityCode}")
-    JSONResult getStorage(@PathVariable("commodityCode") String commodityCode);
+    JsonResult getStorage(@PathVariable("commodityCode") String commodityCode);
 
     /**
      * 仓储减库存
@@ -30,5 +31,5 @@ public interface StorageService {
      * @return
      */
     @GetMapping("/deduct/{commodityCode}/{count}")
-    JSONResult deduct(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count);
+    JsonResult deduct(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count);
 }

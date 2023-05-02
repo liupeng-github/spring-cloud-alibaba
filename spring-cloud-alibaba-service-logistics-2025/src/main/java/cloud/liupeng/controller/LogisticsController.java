@@ -1,6 +1,6 @@
 package cloud.liupeng.controller;
 
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
 import cloud.liupeng.api.sentinel.SentinelFallback;
 import cloud.liupeng.domain.entity.logistics.Logistics;
 import cloud.liupeng.openfeign.service.datalayer.DataLayerLogisticsService;
@@ -36,13 +36,13 @@ public class LogisticsController {
 
     @Trace
     @LKAMethod(value = "index 方法", description = "单体服务测试方法")
-    @GetMapping("/index")
+    @GetMapping("/logistics/index")
     @SentinelResource(value = "index",
             fallback = "handlerFallback", fallbackClass = {SentinelFallback.class},
             blockHandler = "blockHandler", blockHandlerClass = {SentinelFallback.class})
-    public JSONResult index() {
+    public JsonResult index() {
         log.info("物流服务接口，url：/logistics/index，端口号：" + port);
-        return JSONResult.message(HttpStatus.HTTP_OK, "物流服务", "端口号：" + port);
+        return JsonResult.success(HttpStatus.HTTP_OK, "物流服务", "端口号：" + port);
     }
 
     /**
@@ -56,12 +56,12 @@ public class LogisticsController {
     @LKAMethod(value = "getLogistics 方法", description = "物流单号查询物流，URL：/logistics/getLogistics/{logisticsId}")
     @LKAParam(name = "id", value = "物流编号")
     @GetMapping("/logistics/getLogistics/{id}")
-    public JSONResult getLogistics(@PathVariable("id") Integer id) {
+    public JsonResult getLogistics(@PathVariable("id") Integer id) {
         log.info("查询物流接口，url：/logistics/getLogistics/，参数：" + id);
         Logistics logisticsDatalayer = dataLayerLogisticsService.getLogisticsDatalayer(id);
         if (logisticsDatalayer == null) {
-            return JSONResult.errorMsg(HttpStatus.HTTP_NO_CONTENT, "暂时未查到物流信息");
+            return JsonResult.success(HttpStatus.HTTP_NO_CONTENT, "暂时未查到物流信息");
         }
-        return JSONResult.message(HttpStatus.HTTP_OK, "物流单号查询物流", logisticsDatalayer);
+        return JsonResult.success(HttpStatus.HTTP_OK, "物流单号查询物流", logisticsDatalayer);
     }
 }

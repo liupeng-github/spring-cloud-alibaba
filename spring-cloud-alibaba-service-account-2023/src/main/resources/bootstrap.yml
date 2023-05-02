@@ -6,8 +6,9 @@ spring:
       server-addr: 127.0.0.1:8848
       config:
         namespace: spring-cloud-alibaba
+        group: SERVICE_PROD_GROUP
         file-extension: yaml
-        group: PROD_GROUP
-      discovery:
-        namespace: spring-cloud-alibaba
-        group: PROD_GROUP
+        shared-configs: # 共享配置
+          - dataId: spring-cloud-alibaba-common-seata.yaml
+            group: COMMON_SEATA_GROUP
+            refresh: true # 设置动态刷新

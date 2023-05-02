@@ -2,7 +2,7 @@ package cloud.liupeng.controller;
 
 import cloud.liupeng.api.annotations.Jmh;
 import cloud.liupeng.domain.entity.account.Account;
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
 import cloud.liupeng.openfeign.service.datalayer.DataLayerAccountService;
 import cloud.liupeng.api.sentinel.SentinelFallback;
 import cn.hutool.http.HttpStatus;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AccountController {
 
-    private static final String JMH_RESULT_ADDRESS = "/logs/springcloud-alibaba/springcloud-alibaba-business-account-2023/result.json";
+    private static final String JMH_RESULT_ADDRESS = "/logs/spring-cloud-alibaba/spring-cloud-alibaba-service-account-2023/result.json";
 
     @Value("${server.port}")
     private String port;
@@ -47,6 +47,7 @@ public class AccountController {
 
     /**
      * JMH 性能测试
+     *
      * @param args
      * @throws RunnerException
      */
@@ -71,9 +72,9 @@ public class AccountController {
     @SentinelResource(value = "index",
             fallback = "handlerFallback", fallbackClass = {SentinelFallback.class},
             blockHandler = "blockHandler", blockHandlerClass = {SentinelFallback.class})
-    public JSONResult index() {
+    public JsonResult index() {
         log.info("账户服务接口，url：/account/index，端口号：" + port);
-        return JSONResult.message(HttpStatus.HTTP_OK, "账户服务", "端口号：" + port);
+        return JsonResult.success(HttpStatus.HTTP_OK, "端口号：" + port, "账户服务");
     }
 
     /**
@@ -87,13 +88,13 @@ public class AccountController {
     @LKAMethod(value = "getAccount 方法", description = "查询账户信息，URL：/account/getAccount/{userId}")
     @LKAParam(name = "userId", value = "用户ID")
     @GetMapping("/account/getAccount/{userId}")
-    public JSONResult getAccount(@PathVariable("userId") String userId) {
+    public JsonResult getAccount(@PathVariable("userId") String userId) {
         log.info("查询账户信息接口，url：/account/getAccount/，参数：{}", userId);
         Account accountDatalayer = dataLayerAccountService.getAccountDatalayer(userId);
         if (accountDatalayer == null) {
-            JSONResult.errorMsg(HttpStatus.HTTP_NO_CONTENT, "暂时未查询到该账户信息");
+            JsonResult.success(HttpStatus.HTTP_NO_CONTENT, "暂时未查询到该账户信息");
         }
-        return JSONResult.message(HttpStatus.HTTP_OK, "查询账户信息，端口号：" + port, accountDatalayer);
+        return JsonResult.success(HttpStatus.HTTP_OK, "查询账户信息，端口号：" + port, accountDatalayer);
     }
 
     /**
@@ -108,11 +109,11 @@ public class AccountController {
     @LKAMethod(value = "debit 方法", description = "减金额，URL：/account/debit/{userId}/{money}")
     @LKAParam(names = {"userId", "money"}, values = {"用户ID", "金额"})
     @GetMapping("/account/debit/{userId}/{money}")
-    public JSONResult debit(@PathVariable("userId") String userId, @PathVariable("money") Integer money) {
+    public JsonResult debit(@PathVariable("userId") String userId, @PathVariable("money") Integer money) {
         Integer debit = dataLayerAccountService.debitDatalayer(userId, money);
         if (debit > 0) {
-            return JSONResult.message(HttpStatus.HTTP_OK, "减金额，端口号：" + port, debit);
+            return JsonResult.success(HttpStatus.HTTP_OK, "减金额，端口号：" + port, debit);
         }
-        return JSONResult.errorMsg(HttpStatus.HTTP_NO_CONTENT, "减金额失败，端口号：" + port);
+        return JsonResult.success(HttpStatus.HTTP_NO_CONTENT, "减金额失败，端口号：" + port);
     }
 }

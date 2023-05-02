@@ -19,7 +19,7 @@ import org.apache.dubbo.config.annotation.DubboService;
 public class PayApacheServiceImpl extends ServiceImpl<PayMapper, Pay> implements IPayApacheService {
 
     @Override
-    public Integer orderPayDatalayer(Long orderId) {
+    public int orderPayDatalayer(Long orderId) {
         Pay pay = new Pay();
         pay.setOrderId(orderId);
         return baseMapper.insert(pay);

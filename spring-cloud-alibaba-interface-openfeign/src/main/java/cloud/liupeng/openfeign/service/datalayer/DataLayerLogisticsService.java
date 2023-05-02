@@ -1,6 +1,7 @@
 package cloud.liupeng.openfeign.service.datalayer;
 
 import cloud.liupeng.domain.entity.logistics.Logistics;
+import cloud.liupeng.openfeign.constant.ConstantService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  * @author liupeng
  */
-@FeignClient(name = "spring-cloud-alibaba-dubbo-consumer-logistics")
+@FeignClient(name = ConstantService.SPRING_CLOUD_ALIBABA_DUBBO_CONSUMER_LOGISTICS)
 public interface DataLayerLogisticsService {
 
     /**

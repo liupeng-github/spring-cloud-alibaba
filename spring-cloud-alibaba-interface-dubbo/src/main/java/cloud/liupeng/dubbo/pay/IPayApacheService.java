@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 public interface IPayApacheService extends IService<Pay> {
 
-    Integer orderPayDatalayer(@PathVariable("orderId") Long orderId);
+    int orderPayDatalayer(@PathVariable("orderId") Long orderId);
 }

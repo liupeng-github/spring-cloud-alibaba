@@ -29,7 +29,7 @@ public class StorageApacheServiceImpl extends ServiceImpl<StorageMapper, Storage
     @LKAMethod(value = "getStorage 方法", description = "数据层订单接口实现类，查询商品接口")
     @LKAParam(name = "commodityCode", value = "商品编号")
     @Override
-    public Integer getStorageTotal(String commodityCode) {
+    public int getStorageTotal(String commodityCode) {
         return baseMapper.getStorageTotal(commodityCode);
     }
 
@@ -42,7 +42,7 @@ public class StorageApacheServiceImpl extends ServiceImpl<StorageMapper, Storage
     @LKAMethod(value = "deduct 方法", description = "数据层订单接口实现类，扣除存储数量，接口")
     @LKAParam(names = {"commodityCode", "count"}, values = {"商品编号", "数量"})
     @Override
-    public Integer deduct(String commodityCode, int count) {
+    public int deduct(String commodityCode, int count) {
         return baseMapper.deduct(commodityCode, count);
     }
 }

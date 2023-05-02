@@ -1,7 +1,7 @@
 package cloud.liupeng.controller;
 
 import cloud.liupeng.api.sentinel.SentinelFallback;
-import cloud.liupeng.api.utils.JSONResult;
+import cloud.liupeng.api.utils.JsonResult;
 import cloud.liupeng.openfeign.service.datalayer.DataLayerStorageService;
 import cn.hutool.http.HttpStatus;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
@@ -37,13 +37,13 @@ public class StorageController {
 
     @Trace
     @LKAMethod(value = "index 方法", description = "单体服务测试方法")
-    @GetMapping("/index")
+    @GetMapping("/storage/index")
     @SentinelResource(value = "index",
             fallback = "handlerFallback", fallbackClass = {SentinelFallback.class},
             blockHandler = "blockHandler", blockHandlerClass = {SentinelFallback.class})
-    public JSONResult index() {
+    public JsonResult index() {
         log.info("仓储服务接口，url：/storage/index，端口号：" + port);
-        return JSONResult.message(HttpStatus.HTTP_OK, "仓储服务", "端口号：" + port);
+        return JsonResult.success(HttpStatus.HTTP_OK, "仓储服务", "端口号：" + port);
     }
 
     /**
@@ -56,13 +56,13 @@ public class StorageController {
     @Tag(key = "getStorage", value = "commodityCode")
     @LKAMethod(value = "getStorage 方法", description = "查询库存，URL：/storage/getStorage/{commodityCode}")
     @LKAParam(name = "commodityCode", value = "商品编号")
-    @GetMapping("/storage/getStorage/{commodityCode}")
-    public JSONResult getStorage(@PathVariable("commodityCode") String commodityCode) throws ExecutionException, InterruptedException {
-        Integer storageDatalayer = dataLayerStorageService.getStorageDatalayer(commodityCode);
-        if (storageDatalayer == 0) {
-            return JSONResult.errorMsg(HttpStatus.HTTP_NO_CONTENT, "库存不足");
+    @GetMapping("/storage/getStorageTotal/{commodityCode}")
+    public JsonResult getStorageTotal(@PathVariable("commodityCode") String commodityCode) throws ExecutionException, InterruptedException {
+        int storageTotal = dataLayerStorageService.getStorageTotalDatalayer(commodityCode);
+        if (storageTotal == 0) {
+            return JsonResult.success(HttpStatus.HTTP_NO_CONTENT, "库存不足", storageTotal);
         }
-        return JSONResult.message(HttpStatus.HTTP_OK, "查询库存接口，url：/storage/getStorage，参数：" + commodityCode, 1);
+        return JsonResult.success(HttpStatus.HTTP_OK, "查询库存接口，url：/storage/getStorage，参数：" + commodityCode, storageTotal);
     }
 
     /**
@@ -77,11 +77,11 @@ public class StorageController {
     @LKAMethod(value = "deduct 方法", description = "仓储减库存，URL：/storage/deduct/{commodityCode}/{count}")
     @LKAParam(names = {"commodityCode", "count"}, values = {"商品编号", "count"})
     @GetMapping("/storage/deduct/{commodityCode}/{count}")
-    public JSONResult deduct(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count) {
-        Integer deduct = dataLayerStorageService.deductDatalayer(commodityCode, count);
-        if (deduct > 0) {
-            return JSONResult.message(HttpStatus.HTTP_OK, "数据层仓储服务，deduct 方法，端口号：" + port, deduct);
+    public JsonResult deduct(@PathVariable("commodityCode") String commodityCode, @PathVariable("count") int count) {
+        int deduct = dataLayerStorageService.deductDatalayer(commodityCode, count);
+        if (deduct == 0) {
+            return JsonResult.success(HttpStatus.HTTP_OK, "数据层仓储服务，deduct 方法，端口号：" + port, deduct);
         }
-        return JSONResult.errorMsg(HttpStatus.HTTP_NO_CONTENT, "数据层仓储服务，deduct 方法，减库存失败，端口号：" + port);
+        return JsonResult.success(HttpStatus.HTTP_NO_CONTENT, "数据层仓储服务，deduct 方法，减库存失败，端口号：" + port, deduct);
     }
 }
